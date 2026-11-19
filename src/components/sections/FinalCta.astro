@@ -1,0 +1,20 @@
+---
+// 9. CTA FINAL — retoma el problema del hero.
+import CtaButton from '../CtaButton.astro';
+---
+
+<section class="on-dark relative overflow-hidden bg-brand-700 px-4 py-16 text-white sm:px-6 md:py-24" aria-labelledby="cta-final-title">
+  <div
+    class="pointer-events-none absolute -bottom-48 -left-32 size-[30rem] rounded-full bg-brand-800/70"
+    aria-hidden="true">
+  </div>
+  <div class="container-page relative mx-auto max-w-3xl text-center">
+    <h2 id="cta-final-title" class="text-4xl leading-tight font-extrabold tracking-tight text-balance md:text-5xl">
+      Tu stock, al día desde hoy.
+    </h2>
+    <p class="mx-auto mt-4 max-w-xl text-lg text-pretty text-brand-50">
+      Cargá tus productos, hacé tu primera venta y mirá cómo se mueve el stock.
+    </p>
+    <CtaButton location="cta-final" microcopy inverted align="center" class="mt-8" />
+  </div>
+</section>

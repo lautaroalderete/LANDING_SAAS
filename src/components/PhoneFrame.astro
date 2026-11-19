@@ -1,0 +1,21 @@
+---
+// Marco de celular (solo CSS). El contenido va con relación 9:19.5.
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<div
+  class:list={[
+    'relative rounded-[2.5rem] bg-ink p-2.5 shadow-[0_30px_60px_-20px_rgb(15_23_42/0.45)] ring-1 ring-ink/10',
+    className,
+  ]}
+>
+  <div class="relative overflow-hidden rounded-[2rem] bg-paper">
+    <span
+      class="absolute top-2 left-1/2 z-10 h-5 w-20 -translate-x-1/2 rounded-full bg-ink"
+      aria-hidden="true"></span>
+    <slot />
+  </div>
+</div>

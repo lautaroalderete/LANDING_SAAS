@@ -1,0 +1,179 @@
+---
+// 2. LA APP FUNCIONANDO — escanear → venta confirmada → el stock baja en el dashboard.
+//
+// [VIDEO_DEMO.mp4] — grabación vertical del celular, 15–30 s, sin audio.
+//   Poné los archivos en public/demo/demo.mp4 (H.264) y, opcional, public/demo/demo.webm (VP9).
+//   Mientras no existan, se muestra el poster como imagen fija. No hay que tocar código:
+//   el build detecta los archivos solo.
+//   Ejemplo con ffmpeg (720 px de ancho, sin audio):
+//     ffmpeg -i grabacion.mov -an -vf scale=720:-2 -c:v libx264 -crf 28 -preset slow -movflags +faststart public/demo/demo.mp4
+//     ffmpeg -i grabacion.mov -an -vf scale=720:-2 -c:v libvpx-vp9 -crf 38 -b:v 0 public/demo/demo.webm
+// Poster: reemplazá src/assets/poster-demo.png por el primer cuadro del video (720×1560).
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { Picture, getImage } from 'astro:assets';
+import ScanBarcode from '@lucide/astro/icons/scan-barcode';
+import ShoppingCart from '@lucide/astro/icons/shopping-cart';
+import ChartColumn from '@lucide/astro/icons/chart-column';
+import PhoneFrame from '../PhoneFrame.astro';
+import posterSrc from '../../assets/poster-demo.png';
+
+const publicDir = join(process.cwd(), 'public');
+const hasMp4 = existsSync(join(publicDir, 'demo', 'demo.mp4'));
+const hasWebm = existsSync(join(publicDir, 'demo', 'demo.webm'));
+const hasVideo = hasMp4 || hasWebm;
+const poster = await getImage({ src: posterSrc, format: 'webp', width: 540 });
+
+const description =
+  'Demostración en el celular: se escanea el código de barras de un producto en el punto de venta, se confirma la venta y el stock del producto baja en el dashboard.';
+
+const steps = [
+  {
+    icon: ScanBarcode,
+    title: 'Escaneás el producto.',
+    text: 'Con la cámara del celular o con un lector USB. Si no tiene código, lo buscás a mano.',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Cobrás y listo.',
+    text: 'La venta queda registrada y el stock se descuenta al instante. Nunca vendés más de lo que hay.',
+  },
+  {
+    icon: ChartColumn,
+    title: 'Ves el stock real.',
+    text: 'El dashboard muestra lo que queda y te avisa qué productos están por debajo del mínimo.',
+  },
+];
+---
+
+<section id="como-funciona" class="section bg-paper" aria-labelledby="demo-title">
+  <div
+    class="container-page grid items-center gap-x-16 gap-y-6 md:gap-y-8 [grid-template-areas:'head'_'phone'_'steps'] md:grid-cols-[auto_1fr] md:[grid-template-areas:'phone_head'_'phone_steps']"
+  >
+    <div class="[grid-area:head] md:self-end">
+      <p class="eyebrow">Cómo funciona</p>
+      <h2 id="demo-title" class="h2 mt-2 max-w-xl">Escaneás, cobrás y el stock se actualiza solo.</h2>
+    </div>
+
+    <div class="mx-auto w-[190px] [grid-area:phone] sm:w-[240px] lg:w-[280px]">
+      <PhoneFrame>
+        {
+          hasVideo ? (
+            <div class="relative">
+              <video
+                class="block aspect-[360/780] h-auto w-full object-cover"
+                width="360"
+                height="780"
+                muted
+                loop
+                playsinline
+                preload="none"
+                poster={poster.src}
+                aria-label={description}
+                data-demo-video
+              >
+                {hasWebm && <source src="/demo/demo.webm" type="video/webm" />}
+                {hasMp4 && <source src="/demo/demo.mp4" type="video/mp4" />}
+                {description}
+              </video>
+              <button
+                type="button"
+                class="demo-toggle absolute right-3 bottom-3 grid size-11 place-items-center rounded-full bg-ink/80 text-white"
+                aria-label="Pausar el video"
+                data-demo-toggle
+                hidden
+              >
+                <svg class="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <rect x="6" y="4" width="4" height="16" rx="1" />
+                  <rect x="14" y="4" width="4" height="16" rx="1" />
+                </svg>
+                <svg class="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5Z" />
+                </svg>
+              </button>
+            </div>
+          ) : (
+            <Picture
+              src={posterSrc}
+              formats={['avif', 'webp']}
+              fallbackFormat="webp"
+              widths={[360, 540]}
+              sizes="(min-width: 1024px) 260px, (min-width: 640px) 220px, 170px"
+              alt={description}
+              loading="lazy"
+              decoding="async"
+              class="block h-auto w-full"
+            />
+          )
+        }
+      </PhoneFrame>
+    </div>
+
+    <ol class="space-y-3 [grid-area:steps] md:space-y-6 md:self-start">
+      {
+        steps.map((step, i) => (
+          <li class="flex gap-4">
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-brand-700 shadow-sm ring-1 ring-line">
+              <step.icon size={22} />
+            </span>
+            <div class="pt-2 md:pt-1">
+              <p class="text-lg font-bold">
+                <span class="sr-only">Paso {i + 1}: </span>
+                {step.title}
+              </p>
+              <p class="mt-1 hidden max-w-md text-muted md:block">{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+{
+  hasVideo && (
+    <script is:inline>
+      // Reproduce el video solo cuando está a la vista (ahorra datos en el celular),
+      // respeta "reducir movimiento" y ofrece pausa (WCAG 2.2.2).
+      const video = document.querySelector('[data-demo-video]');
+      const button = document.querySelector('[data-demo-toggle]');
+      if (video && button && 'IntersectionObserver' in window) {
+        let pausedByUser = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const sync = () => {
+          const playing = !video.paused;
+          button.dataset.state = playing ? 'playing' : 'paused';
+          button.setAttribute('aria-label', playing ? 'Pausar el video' : 'Reproducir el video');
+        };
+        video.addEventListener('play', sync);
+        video.addEventListener('pause', sync);
+        button.addEventListener('click', () => {
+          pausedByUser = !video.paused;
+          if (video.paused) video.play().catch(() => {});
+          else video.pause();
+        });
+        new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting && !pausedByUser) video.play().catch(() => {});
+            else if (!entry.isIntersecting) video.pause();
+          },
+          { threshold: 0.35 },
+        ).observe(video);
+        button.hidden = false;
+        sync();
+      }
+    </script>
+  )
+}
+
+<style>
+  .demo-toggle .icon-play,
+  .demo-toggle[data-state='playing'] .icon-play {
+    display: none;
+  }
+  .demo-toggle[data-state='paused'] .icon-play {
+    display: block;
+  }
+  .demo-toggle[data-state='paused'] .icon-pause {
+    display: none;
+  }
+</style>

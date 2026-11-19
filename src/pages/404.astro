@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { BRAND_NAME } from '../data/site';
+---
+
+<BaseLayout title={`Página no encontrada | ${BRAND_NAME}`} path="/404/" noindex>
+  <Header />
+  <main id="contenido" class="px-4 py-24 text-center sm:px-6">
+    <p class="eyebrow">Error 404</p>
+    <h1 class="mt-2 text-4xl font-extrabold tracking-tight">Esta página no existe.</h1>
+    <p class="lead mx-auto mt-4 max-w-md">Puede que el link esté mal escrito o que la página se haya movido.</p>
+    <a href="/" class="btn-primary mt-8">Volver al inicio</a>
+  </main>
+  <Footer />
+</BaseLayout>

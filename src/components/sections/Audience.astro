@@ -1,0 +1,55 @@
+---
+// 5. PARA QUIÉN ES — un caso concreto por rubro, no una lista genérica.
+import Store from '@lucide/astro/icons/store';
+import Wrench from '@lucide/astro/icons/wrench';
+import Package from '@lucide/astro/icons/package';
+import Truck from '@lucide/astro/icons/truck';
+
+const audiences = [
+  {
+    icon: Store,
+    title: 'Kioscos y almacenes',
+    text: 'Cientos de productos chicos y gente esperando. Escaneás, cobrás en segundos y el dashboard te avisa qué golosina reponer.',
+  },
+  {
+    icon: Wrench,
+    title: 'Ferreterías y corralones',
+    text: 'Miles de artículos y listas nuevas a cada rato. Cargás el costo del proveedor y los precios se actualizan con tu recargo.',
+  },
+  {
+    icon: Package,
+    title: 'E-commerce y emprendedores',
+    text: 'Antes de publicar, mirás el stock real. Cada venta lo descuenta y no vendés lo que no tenés.',
+  },
+  {
+    icon: Truck,
+    title: 'Distribuidoras',
+    text: 'Compras grandes que entran al stock al confirmarlas, cuenta corriente por proveedor y varios usuarios con sus permisos.',
+  },
+];
+---
+
+<section class="section" aria-labelledby="audiencia-title">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Para quién es</p>
+      <h2 id="audiencia-title" class="h2 mt-2">Pensado para el comercio de todos los días.</h2>
+    </div>
+
+    <ul class="mt-6 grid gap-3 sm:grid-cols-2 sm:gap-4 md:mt-12 lg:grid-cols-4 lg:gap-6">
+      {
+        audiences.map((item) => (
+          <li class="rounded-[var(--radius-card)] border border-line bg-white p-4 sm:p-5 lg:p-6">
+            <div class="flex items-center gap-3 sm:block">
+              <span class="grid size-9 shrink-0 place-items-center rounded-lg bg-brand-50 text-brand-700 sm:size-11 sm:rounded-xl">
+                <item.icon size={20} />
+              </span>
+              <h3 class="text-lg font-bold sm:mt-4">{item.title}</h3>
+            </div>
+            <p class="mt-2 text-[0.95rem] text-muted">{item.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

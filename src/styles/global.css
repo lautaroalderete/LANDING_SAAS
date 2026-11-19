@@ -1,0 +1,96 @@
+/* Fuente autoalojada (Fontsource). Solo variable, peso 300–900, font-display: swap.
+   El navegador baja únicamente el subset "latin" (español completo) gracias a unicode-range. */
+@import '@fontsource-variable/figtree';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  /* Acento: verde "plata". brand-600 con texto blanco = 4.8:1 (AA). */
+  --color-brand-50: #effbf3;
+  --color-brand-100: #d8f5e2;
+  --color-brand-200: #b3eac7;
+  --color-brand-300: #7fd7a3;
+  --color-brand-400: #3fbd78;
+  --color-brand-500: #16a157;
+  --color-brand-600: #08843f;
+  --color-brand-700: #066a33;
+  --color-brand-800: #06552b;
+  --color-brand-900: #053f21;
+  --color-brand-950: #022411;
+
+  /* Neutros: tinta y grises levemente cálidos. */
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-line: #e5e7eb;
+  --color-paper: #f7f8f6;
+
+  --radius-card: 1.25rem;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    /* Compensa el header fijo al saltar a un ancla. */
+    scroll-padding-top: 5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+
+  /* Foco visible y consistente en todo el sitio (teclado). */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: 0.375rem;
+  }
+
+  .on-dark :focus-visible {
+    outline-color: #fff;
+  }
+
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  /* Botón principal: el único objetivo de conversión de la página. */
+  .btn-primary {
+    @apply inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-brand-600 px-7 text-lg font-bold text-white shadow-[0_8px_24px_-8px_rgb(8_132_63/0.55)] transition-colors hover:bg-brand-700 active:bg-brand-800;
+  }
+
+  .btn-secondary {
+    @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border-2 border-ink/15 bg-white px-6 text-base font-bold text-ink transition-colors hover:border-ink/40;
+  }
+
+  .section {
+    @apply px-4 py-12 sm:px-6 md:py-24;
+  }
+
+  .container-page {
+    @apply mx-auto w-full max-w-6xl;
+  }
+
+  .eyebrow {
+    @apply text-sm font-bold tracking-wide text-brand-700 uppercase;
+  }
+
+  .h2 {
+    @apply text-[1.75rem] leading-tight font-extrabold tracking-tight text-balance sm:text-4xl md:text-[2.75rem];
+  }
+
+  .lead {
+    @apply text-lg text-pretty text-muted;
+  }
+}

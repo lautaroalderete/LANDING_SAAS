@@ -1,0 +1,62 @@
+---
+// 3. PROBLEMA → CÓMO LO RESOLVEMOS. El dolor en palabras del cliente, la respuesta en una línea.
+import BellRing from '@lucide/astro/icons/bell-ring';
+import NotebookPen from '@lucide/astro/icons/notebook-pen';
+import TrendingUp from '@lucide/astro/icons/trending-up';
+import Calculator from '@lucide/astro/icons/calculator';
+
+const items = [
+  {
+    icon: BellRing,
+    pain: 'Me quedo sin mercadería y me entero cuando el cliente la pide.',
+    answer:
+      'El dashboard te muestra los productos por debajo del stock mínimo. Sabés qué reponer antes de que falte.',
+  },
+  {
+    icon: NotebookPen,
+    pain: 'Llevo todo en un Excel (o en un cuaderno) que nunca está al día.',
+    answer: 'Cada venta y cada compra mueven el stock solas. El número que ves es el real.',
+  },
+  {
+    icon: TrendingUp,
+    pain: 'No sé qué se vende, qué está parado ni cuánto gano.',
+    answer:
+      'Reportes de lo más vendido, stock valorizado y ganancia por período, exportables a Excel.',
+  },
+  {
+    icon: Calculator,
+    pain: 'Cuando sube un proveedor, cambiar los precios me lleva una tarde.',
+    answer: 'Cargás el costo nuevo y los precios de venta se recalculan solos con tu recargo.',
+  },
+];
+---
+
+<section class="section" aria-labelledby="problemas-title">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">¿Te suena?</p>
+      <h2 id="problemas-title" class="h2 mt-2">Lo que hoy te hace perder plata, y cómo se termina.</h2>
+    </div>
+
+    <ul class="mt-6 grid gap-3 md:mt-12 md:grid-cols-2 md:gap-6">
+      {
+        items.map((item) => (
+          <li class="rounded-[var(--radius-card)] border border-line bg-white p-4 md:p-7">
+            <blockquote class="flex gap-2 leading-snug font-bold md:gap-3 md:text-lg">
+              <span class="text-2xl leading-none text-ink/30" aria-hidden="true">
+                “
+              </span>
+              <p>{item.pain}</p>
+            </blockquote>
+            <p class="mt-2 flex gap-2 text-[0.95rem] text-muted md:mt-4 md:gap-3 md:text-base">
+              <span class="grid shrink-0 place-items-center text-brand-700 md:size-8 md:rounded-lg md:bg-brand-50">
+                <item.icon size={18} />
+              </span>
+              <span class="md:pt-1">{item.answer}</span>
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

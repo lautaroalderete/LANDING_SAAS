@@ -1,0 +1,52 @@
+---
+import Mail from '@lucide/astro/icons/mail';
+import Phone from '@lucide/astro/icons/phone';
+import Logo from './Logo.astro';
+import { BRAND_NAME, CONTACT } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-white px-4 py-12 sm:px-6">
+  <div class="container-page grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+    <div class="max-w-sm">
+      <Logo />
+      <p class="mt-4 text-muted">
+        Sistema de control de stock, ventas y facturación electrónica para comercios de Argentina.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-bold tracking-wide text-ink uppercase">Contacto</h2>
+      <ul class="mt-4 space-y-3 text-muted">
+        <li>
+          <a
+            href={`mailto:${CONTACT.email}`}
+            class="inline-flex items-center gap-2 rounded-md break-all hover:text-ink"
+          >
+            <Mail size={18} class="shrink-0 text-brand-700" />
+            {CONTACT.email}
+          </a>
+        </li>
+        <li>
+          <a href={`tel:${CONTACT.phoneE164}`} class="inline-flex items-center gap-2 rounded-md hover:text-ink">
+            <Phone size={18} class="shrink-0 text-brand-700" />
+            {CONTACT.phoneDisplay}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="text-sm font-bold tracking-wide text-ink uppercase">Legales</h2>
+      <ul class="mt-4 space-y-3 text-muted">
+        <li><a href="/terminos/" class="rounded-md hover:text-ink">Términos y condiciones</a></li>
+        <li><a href="/privacidad/" class="rounded-md hover:text-ink">Política de privacidad</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="container-page mt-10 border-t border-line pt-6 text-sm text-muted">
+    © {year} {BRAND_NAME}. Hecho en Argentina.
+  </div>
+</footer>

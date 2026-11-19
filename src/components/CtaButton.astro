@@ -1,0 +1,70 @@
+---
+// Botón "Probalo gratis": el único objetivo de conversión. Todos apuntan a SIGNUP_URL.
+// `data-cta` identifica la ubicación para medir clics más adelante (GA4, Plausible, etc.).
+import ArrowRight from '@lucide/astro/icons/arrow-right';
+import Check from '@lucide/astro/icons/check';
+import { CTA_MICROCOPY, SIGNUP_URL } from '../data/site';
+
+interface Props {
+  /** Dónde está el botón: hero, header, precios-basico, cta-final… */
+  location: string;
+  /** Muestra "14 días gratis · Sin tarjeta · Cancelás cuando quieras" debajo. */
+  microcopy?: boolean;
+  /** Variante para fondo de acento (botón blanco). */
+  inverted?: boolean;
+  /** Ocupa todo el ancho en mobile. */
+  block?: boolean;
+  class?: string;
+  /** Alineación del microcopy. */
+  align?: 'left' | 'center';
+}
+
+const {
+  location,
+  microcopy = false,
+  inverted = false,
+  block = false,
+  class: className = '',
+  align = 'left',
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    'flex flex-col gap-3',
+    align === 'center' ? 'items-center text-center' : 'items-stretch sm:items-start',
+    className,
+  ]}
+>
+  <a
+    href={SIGNUP_URL}
+    data-cta={location}
+    class:list={[
+      inverted
+        ? 'inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-white px-7 text-lg font-bold text-brand-800 shadow-lg transition-colors hover:bg-brand-50'
+        : 'btn-primary',
+      block && 'w-full sm:w-auto',
+    ]}
+  >
+    Probalo gratis
+    <ArrowRight size={20} stroke-width={2.5} />
+  </a>
+  {
+    microcopy && (
+      <ul
+        class:list={[
+          'flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold',
+          align === 'center' && 'justify-center',
+          inverted ? 'text-brand-50' : 'text-muted',
+        ]}
+      >
+        {CTA_MICROCOPY.map((item) => (
+          <li class="inline-flex items-center gap-1.5 whitespace-nowrap">
+            <Check size={16} stroke-width={3} class={inverted ? 'text-brand-200' : 'text-brand-600'} />
+            {item}
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</div>

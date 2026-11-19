@@ -1,0 +1,23 @@
+---
+import { BRAND_NAME } from '../data/site';
+
+interface Props {
+  class?: string;
+  /** Variante para fondos oscuros. */
+  inverted?: boolean;
+}
+const { class: className = '', inverted = false } = Astro.props;
+---
+
+<span class:list={['inline-flex items-center gap-2.5 font-extrabold tracking-tight', className]}>
+  <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true" class="shrink-0">
+    <rect width="32" height="32" rx="8" fill={inverted ? '#ffffff' : '#08843f'}></rect>
+    <g fill={inverted ? '#08843f' : '#ffffff'}>
+      <rect x="7" y="17" width="3.5" height="8" rx="1.25"></rect>
+      <rect x="12.25" y="13" width="3.5" height="12" rx="1.25"></rect>
+      <rect x="17.5" y="9.5" width="3.5" height="15.5" rx="1.25"></rect>
+      <rect x="22.75" y="6.5" width="2.5" height="18.5" rx="1.25" opacity=".55"></rect>
+    </g>
+  </svg>
+  <span class="text-lg">{BRAND_NAME}</span>
+</span>

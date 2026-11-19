@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+// URL del subset latino de la fuente: se precarga para que el hero pinte con la tipografía final.
+import fontLatin from '@fontsource-variable/figtree/files/figtree-latin-wght-normal.woff2?url';
+import { BRAND_NAME, SEO } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Ruta relativa al sitio para el canonical. Por defecto, la ruta actual. */
+  path?: string;
+  /** Páginas que todavía no deben indexarse (p. ej., legales sin completar). */
+  noindex?: boolean;
+  /** Objetos JSON-LD a inyectar en el <head>. */
+  schema?: Record<string, unknown>[];
+}
+
+const {
+  title = SEO.title,
+  description = SEO.description,
+  path = Astro.url.pathname,
+  noindex = false,
+  schema = [],
+} = Astro.props;
+
+const site = Astro.site!;
+const canonical = new URL(path, site).href;
+const ogImage = new URL(SEO.ogImage, site).href;
+
+// JSON.stringify no escapa "<": lo hacemos a mano para que ningún texto pueda cerrar el <script>.
+const toJsonLd = (data: unknown) => JSON.stringify(data).replace(/</g, '\\u003c');
+---
+
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta name="theme-color" content={SEO.themeColor} />
+
+    <link rel="preload" href={fontLatin} as="font" type="font/woff2" crossorigin />
+
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    {/* Open Graph */}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content={BRAND_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={SEO.ogImageAlt} />
+
+    {/* Twitter / X */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={SEO.ogImageAlt} />
+
+    {schema.map((item) => <script type="application/ld+json" set:html={toJsonLd(item)} />)}
+  </head>
+  <body>
+    <a
+      href="#contenido"
+      class="sr-only z-[100] rounded-lg bg-ink px-4 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:top-3 focus:left-3"
+    >
+      Saltar al contenido
+    </a>
+    <slot />
+  </body>
+</html>

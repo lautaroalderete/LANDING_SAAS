@@ -1,0 +1,44 @@
+---
+// 8. PREGUNTAS FRECUENTES — <details>/<summary> nativo, sin JavaScript.
+// name="faq" hace que se abra una a la vez (navegadores actuales); en los demás se abren varias.
+// El mismo texto alimenta el JSON-LD FAQPage (src/data/faq.ts).
+import Plus from '@lucide/astro/icons/plus';
+import { FAQ } from '../../data/faq';
+---
+
+<section id="preguntas" class="section bg-paper" aria-labelledby="faq-title">
+  <div class="container-page grid gap-8 lg:grid-cols-[1fr_1.6fr] lg:gap-16">
+    <div>
+      <p class="eyebrow">Preguntas frecuentes</p>
+      <h2 id="faq-title" class="h2 mt-2">Lo que todos preguntan antes de probar.</h2>
+    </div>
+
+    <div class="divide-y divide-line rounded-[var(--radius-card)] border border-line bg-white">
+      {
+        FAQ.map((item) => (
+          <details name="faq" class="faq-item group">
+            <summary class="flex min-h-13 cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 text-left font-bold md:min-h-14 md:px-6 md:py-3.5 md:text-lg">
+              <h3>{item.q}</h3>
+              <Plus
+                size={20}
+                stroke-width={2.5}
+                class="shrink-0 text-brand-700 transition-transform duration-200 group-open:rotate-45"
+              />
+            </summary>
+            <p class="px-4 pb-5 text-muted md:px-6">{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq-item:first-child summary {
+    border-top-left-radius: var(--radius-card);
+    border-top-right-radius: var(--radius-card);
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+// 4. FEATURES CLAVE — 6 como máximo. Ícono + título corto + una sola línea.
+import ScanBarcode from '@lucide/astro/icons/scan-barcode';
+import ShoppingCart from '@lucide/astro/icons/shopping-cart';
+import ReceiptText from '@lucide/astro/icons/receipt-text';
+import Wallet from '@lucide/astro/icons/wallet';
+import FileSpreadsheet from '@lucide/astro/icons/file-spreadsheet';
+import UserCog from '@lucide/astro/icons/user-cog';
+
+const features = [
+  {
+    icon: ScanBarcode,
+    title: 'Escáner con la cámara del celular',
+    text: 'Apuntás al código de barras y listo. También anda con lector USB.',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'Punto de venta sin sobreventas',
+    text: 'Cobrás y el stock baja al instante. Nunca vendés lo que no tenés.',
+  },
+  {
+    icon: ReceiptText,
+    title: 'Facturación electrónica ARCA',
+    text: 'Facturas A, B y C con CAE y QR, desde el mismo punto de venta.',
+  },
+  {
+    icon: Wallet,
+    title: 'Cuenta corriente con proveedores',
+    text: 'Cuánto le debés a cada uno, pagos parciales y vencimientos.',
+  },
+  {
+    icon: FileSpreadsheet,
+    title: 'Reportes en Excel y PDF',
+    text: '12 reportes listos para ver por período y descargar.',
+  },
+  {
+    icon: UserCog,
+    title: 'Empleados con permisos a medida',
+    text: 'Tu empleado vende, pero no ve costos ni toca precios si no querés.',
+  },
+];
+---
+
+<section class="section bg-paper" aria-labelledby="features-title">
+  <div class="container-page">
+    <div class="max-w-2xl">
+      <p class="eyebrow">Lo que vas a usar todos los días</p>
+      <h2 id="features-title" class="h2 mt-2">Todo lo de tu mostrador, en un solo lugar.</h2>
+    </div>
+
+    <ul class="mt-6 grid gap-x-8 gap-y-5 sm:grid-cols-2 md:mt-12 md:gap-y-10 lg:grid-cols-3">
+      {
+        features.map((feature) => (
+          <li class="flex gap-4">
+            <span class="grid size-11 shrink-0 place-items-center rounded-xl bg-brand-600 text-white md:size-12">
+              <feature.icon size={22} />
+            </span>
+            <div>
+              <h3 class="text-lg leading-snug font-bold">{feature.title}</h3>
+              <p class="mt-0.5 text-[0.95rem] text-muted md:mt-1 md:text-base">{feature.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

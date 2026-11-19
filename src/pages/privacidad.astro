@@ -1,0 +1,53 @@
+---
+// [PRIVACIDAD] — Borrador con la información real del producto. Hacelo revisar por un abogado
+// antes de publicar (Ley 25.326 de Protección de Datos Personales).
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { BRAND_NAME, CONTACT } from '../data/site';
+---
+
+<LegalLayout
+  title="Política de privacidad"
+  description={`Cómo ${BRAND_NAME} cuida y usa los datos de tu comercio.`}
+  path="/privacidad/"
+  updated="[FECHA]"
+>
+  <p>
+    Esta política explica qué datos trata {BRAND_NAME}, para qué y cómo los protege. El responsable es [RAZÓN SOCIAL],
+    CUIT [CUIT], con domicilio en [DOMICILIO].
+  </p>
+
+  <h2>1. Qué datos guardamos</h2>
+  <ul>
+    <li>Datos de la cuenta: nombre, email y usuarios que crees.</li>
+    <li>Datos de tu comercio: productos, stock, compras, ventas, proveedores y clientes (con CUIT/DNI y condición frente al IVA).</li>
+    <li>Registros de auditoría de las acciones importantes y del historial de movimientos de stock.</li>
+    <li>[COMPLETAR: datos técnicos y cookies que use la app, si corresponde.]</li>
+  </ul>
+
+  <h2>2. Cómo los protegemos</h2>
+  <ul>
+    <li>Las contraseñas se guardan cifradas con Argon2.</li>
+    <li>Las sesiones son seguras.</li>
+    <li>Los datos de cada empresa están aislados de los de las demás.</li>
+    <li>Servidores: [proveedor/ubicación]. Backups: [frecuencia].</li>
+  </ul>
+
+  <h2>3. Para qué los usamos</h2>
+  <p>
+    Solo para prestarte el servicio: mostrar tu stock, registrar ventas y compras, emitir comprobantes ante ARCA y
+    generar tus reportes. [COMPLETAR: comunicaciones comerciales, si las hubiera.]
+  </p>
+
+  <h2>4. Cuánto tiempo los guardamos</h2>
+  <p>
+    Tus datos nunca se borran, aunque la suscripción venza: la cuenta queda en modo solo lectura y podés exportarlos.
+    [COMPLETAR: cómo pedir la eliminación definitiva.]
+  </p>
+
+  <h2>5. Tus derechos</h2>
+  <p>
+    Podés pedir acceso, rectificación o supresión de tus datos personales escribiendo a
+    <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>. [COMPLETAR con asesoramiento legal: texto de la Ley
+    25.326 y datos de la Agencia de Acceso a la Información Pública.]
+  </p>
+</LegalLayout>

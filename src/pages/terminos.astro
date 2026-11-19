@@ -1,0 +1,60 @@
+---
+// [TÉRMINOS] — Borrador con la información real del producto. Hacelo revisar por un abogado
+// antes de publicar (Ley 24.240 de Defensa del Consumidor y Res. 424/2020 "botón de arrepentimiento").
+import LegalLayout from '../layouts/LegalLayout.astro';
+import { BRAND_NAME, CONTACT } from '../data/site';
+---
+
+<LegalLayout
+  title="Términos y condiciones"
+  description={`Términos y condiciones de uso de ${BRAND_NAME}, sistema de control de stock y ventas.`}
+  path="/terminos/"
+  updated="[FECHA]"
+>
+  <p>
+    Estos términos regulan el uso de {BRAND_NAME}, un sistema web de control de stock, compras, ventas y facturación
+    electrónica, prestado por [RAZÓN SOCIAL], CUIT [CUIT], con domicilio en [DOMICILIO].
+  </p>
+
+  <h2>1. El servicio</h2>
+  <p>
+    {BRAND_NAME} se usa desde el navegador de una computadora, tablet o celular. No requiere instalación. Las funciones
+    disponibles dependen del plan contratado, según se detalla en la sección de precios.
+  </p>
+
+  <h2>2. Prueba gratis</h2>
+  <p>
+    Todos los planes incluyen una prueba de 14 días con todas las funciones, sin necesidad de cargar una tarjeta. Al
+    terminar la prueba podés elegir un plan. Si no elegís ninguno, la cuenta pasa a modo solo lectura.
+  </p>
+
+  <h2>3. Suscripción, pagos y cancelación</h2>
+  <ul>
+    <li>Los precios se expresan en pesos argentinos. [IVA incluido / + IVA].</li>
+    <li>Medios de pago: [medio de pago: transferencia / Mercado Pago].</li>
+    <li>No hay permanencia mínima: podés cancelar cuando quieras.</li>
+    <li>[COMPLETAR: periodicidad de facturación, actualización de precios y aviso previo.]</li>
+  </ul>
+
+  <h2>4. Tus datos</h2>
+  <p>
+    Los datos que cargás son tuyos. No se borran aunque la suscripción venza: la cuenta queda en modo solo lectura y
+    podés exportarlos. Más detalles en la <a href="/privacidad/">Política de privacidad</a>.
+  </p>
+
+  <h2>5. Facturación electrónica</h2>
+  <p>
+    En los planes que la incluyen, los comprobantes se emiten ante ARCA con los datos fiscales que cargás. Sos
+    responsable de que esos datos sean correctos. Si ARCA no responde, la venta se registra igual y la emisión se
+    reintenta automáticamente.
+  </p>
+
+  <h2>6. Responsabilidades</h2>
+  <p>[COMPLETAR con asesoramiento legal: disponibilidad del servicio, uso aceptable, limitación de responsabilidad.]</p>
+
+  <h2>7. Contacto</h2>
+  <p>
+    Escribinos a <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a> o llamanos al
+    <a href={`tel:${CONTACT.phoneE164}`}>{CONTACT.phoneDisplay}</a>.
+  </p>
+</LegalLayout>
